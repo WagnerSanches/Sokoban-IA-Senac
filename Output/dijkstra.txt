@@ -1,0 +1,10 @@
+Estado final
+⚪️⚪️⚪️⚪️⚪️
+🟢🧱🧱⚪️⚪️
+⚪️⚪️🧱⚪️⚪️
+⚪️⚪️🧱⚪️⚪️
+⚪️🙎⚪️⚪️⚪️
+Movimentos
+→ → → ↓ ↓ ↓ ↓ ← ← → → ↑ ↑ → ↓ ↓ ← ← ←
+Quantidade de movimentos
+19
