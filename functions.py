@@ -12,17 +12,14 @@ def vizinhos(no, grid):
         nova_col   = no.col + dc
         nova_pos   = (nova_linha, nova_col)
 
-        # fora do grid
         if not (0 <= nova_linha < grid.linhas and 0 <= nova_col < grid.colunas):
             continue
 
-        # barreira
         if nova_pos in grid.barreiras:
             continue
 
-        # calcula custo do movimento
         caixas_dict = dict(no.caixas_restantes)
-        carregando  = no.carregando  # None ou peso
+        carregando  = no.carregando  
 
         if carregando is not None:
             custo_movimento = 1 + carregando
@@ -32,7 +29,6 @@ def vizinhos(no, grid):
         novas_caixas = dict(caixas_dict)
         novo_carregando = carregando
 
-        # chegou numa caixa sem estar carregando? pega!
         if nova_pos in caixas_dict and carregando is None:
             novo_carregando = caixas_dict[nova_pos]
             del novas_caixas[nova_pos]
@@ -47,7 +43,7 @@ def vizinhos(no, grid):
             carregando=novo_carregando,
             custo=no.custo + custo_movimento,
             predecessor=no,
-            movimento=mov    # ← passa a direção
+            movimento=mov    
         )
         resultado.append(novo_no)
 
@@ -64,20 +60,17 @@ def reconstruir_caminho(no_final):
 
 def gerar_estado_final(grid, caminho_nos):
     import copy
-    # copia o grid original
+
     estado = copy.deepcopy(grid.grid)
 
-    # limpa posições originais do agente e caixas
     for li in range(grid.linhas):
         for ci in range(grid.colunas):
             cel = estado[li][ci]
             if cel == '🙎' or cel.rstrip() in ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣']:
                 estado[li][ci] = '⚪️'
 
-    # pega o no final
     no_final = caminho_nos[-1]
 
-    # coloca agente na posição final
     estado[no_final.linha][no_final.col] = '🙎'
 
     return estado
@@ -87,16 +80,14 @@ def salvar_saida(caminho_arquivo, grid, caminho_nos):
     movimentos = [no.movimento for no in caminho_nos if no.movimento is not None]
 
     with open(caminho_arquivo, 'w', encoding='utf-8') as f:
-        # estado final
+
         f.write("Estado final\n")
         for linha in estado_final:
             f.write(''.join(linha) + '\n')
 
-        # movimentos
         f.write("Movimentos\n")
         f.write(' '.join(movimentos) + '\n')
 
-        # quantidade
         f.write("Quantidade de movimentos\n")
         f.write(str(len(movimentos)) + '\n')
 

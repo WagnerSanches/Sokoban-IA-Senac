@@ -8,7 +8,7 @@ class No:
         self.carregando = carregando
         self.custo = custo
         self.predecessor = predecessor
-        self.movimento = movimento   # ← adiciona esse
+        self.movimento = movimento   
 
     def posicao(self):
         return (self.linha, self.col)
@@ -16,7 +16,6 @@ class No:
     def estado(self):
         return (self.linha, self.col, self.caixas_restantes, self.carregando)
 
-    # necessário para a fila de prioridade comparar os nós
     def __lt__(self, outro):
         return self.custo < outro.custo
     
@@ -31,7 +30,7 @@ class Grid:
     def __init__(self, caminho):
         self.grid = []
         self.agente = None
-        self.caixas = {}       # {(li, ci): peso}
+        self.caixas = {}       
         self.alvos = []
         self.barreiras = set()
         self.linhas = 0
